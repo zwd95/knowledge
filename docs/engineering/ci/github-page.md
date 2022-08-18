@@ -66,6 +66,20 @@ jobs:
 
 在 Name 中输入 秘钥名称（Token），在 Value 上粘贴刚才生成的 TOKEN，确认无误后点击 Add Secret，生成一个 Actions Secret 
 
+### gh-pages 分支
+
+Github 创建 gh-pages 分支后会自动部署 Github Pages 上，所以利用该特性把生成的静态文件提交到 gh-pages 分支上就可以通过 Github Pages 自动生成静态站点
+
+该操作无需手动，后面交由第三方 Actions 帮助你将代码推送到 gh-pages 分支上。要是 Github Pages 生效，还需要进行一些配置
+
+进入仓库，点击 Settings，点击 Pages，点击 Branch，选择 gh-pages（第一次创建没有该分支，执行一次 ci 操作之后，第三方 Actions 会自动帮你新建一个 gh-pages 分支并提交）。会有 root 与 docs 两个文件夹选项，若把文档文件放到 docs 文件夹中，则选择 docs，否则全部清空选择 root
+
+点击 Save，就会通过 Github Pages 自动生成静态站点了
+
+```
+https://<username>.github.io/<repository>
+```
+
 ### 配置 ci.yml
 
 在项目的根目录下创建 .github/workflows 文件夹。在 workflows 文件下创建一个 ci.yml 文件。文件内容如下
@@ -141,8 +155,10 @@ jobs:
 
 ssh-deploy@v3 是一个第三方 Actions，用于自动部署代码到服务器。入参使用 env 进行配置，[配置列表](https://github.com/easingthemes/ssh-deploy#configuration)
 
-- SSH_PRIVATE_KEY：SSH 秘钥，登陆服务器后可执行 ssh-keygen -m PEM -t rsa -b 4096 生成 
+- SSH_PRIVATE_KEY：SSH 秘钥，登陆服务器后可执行 ssh-keygen -m PEM -t rsa -b 4096 生成，执行 cat /root/.ssh/id_rsa 查看秘钥
 - REMOTE_HOST：服务器地址
 - REMOTE_USER：服务器用户
 - SOURCE：复制到阿里云服务器的文件夹名称
-- TARGET：dist 文件夹将放在 /data/apps/doc 下面
+- TARGET：dist 文件夹将放在 /data/apps/doc 
+
+在项目仓库 Settings -> Secrets -> Actions -> New repository secret 添加 ECS_PRIVATE_KEY ECS_HOST ECS_USER 环境变量

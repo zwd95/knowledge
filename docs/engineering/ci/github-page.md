@@ -103,3 +103,7 @@ actions/checkout@v2 是官方 Actions，用于自动检出最新代码
 actions-gh-pages 是一个第三方 Actions，用于自动部署代码到 Github Pages。入参使用 with 配置，[配置列表](https://github.com/peaceiris/actions-gh-pages#options)
 
 目前为止，基本步骤已全部完成，每次将代码提交到仓库的时候，就会自动触发 ci.yml 脚本。打开仓库，点击 Actions，就能看到全部 workflows
+
+Tip：Github 的私有仓库，无法直接部署到 github pages 使用，需要升级服务或者将仓库设为 public
+
+## 使用 Github Actions 部署到阿里云服务器

@@ -89,7 +89,6 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           publish_dir: ./dist
-
 ```
 
 步骤解释
@@ -107,3 +106,43 @@ actions-gh-pages 是一个第三方 Actions，用于自动部署代码到 Github
 Tip：Github 的私有仓库，无法直接部署到 github pages 使用，需要升级服务或者将仓库设为 public
 
 ## 使用 Github Actions 部署到阿里云服务器
+
+### 配置文件
+
+```yml
+name: CI
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install And Build
+        run: npm install && npm run build
+      - name: DeployGP
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./dist
+      - name: DeployECS
+        uses: easingthemes/ssh-deploy@v2
+        env:
+          ARGS: '-avz --delete'
+          SSH_PRIVATE_KEY: ${{ secrets.ECS_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.ECS_HOST }}
+          REMOTE_USER: ${{ secrets.ECS_USER }}
+          SOURCE: dist
+          TARGET: /data/apps/doc
+```
+
+ssh-deploy@v3 是一个第三方 Actions，用于自动部署代码到服务器。入参使用 env 进行配置，[配置列表](https://github.com/easingthemes/ssh-deploy#configuration)
+
+- SSH_PRIVATE_KEY：SSH 秘钥，登陆服务器后可执行 ssh-keygen -m PEM -t rsa -b 4096 生成 
+- REMOTE_HOST：服务器地址
+- REMOTE_USER：服务器用户
+- SOURCE：复制到阿里云服务器的文件夹名称
+- TARGET：dist 文件夹将放在 /data/apps/doc 下面

@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/knowledge/',
   title: 'Knowledge',
   description: '',
   themeConfig: {

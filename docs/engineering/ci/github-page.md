@@ -150,7 +150,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.ECS_HOST }}
           REMOTE_USER: ${{ secrets.ECS_USER }}
           SOURCE: dist
-          TARGET: /data/apps/doc
+          TARGET: /data/apps/docs
 ```
 
 ssh-deploy@v3 是一个第三方 Actions，用于自动部署代码到服务器。入参使用 env 进行配置，[配置列表](https://github.com/easingthemes/ssh-deploy#configuration)

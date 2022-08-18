@@ -23,5 +23,5 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.ECS_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.ECS_HOST }}
           REMOTE_USER: ${{ secrets.ECS_USER }}
-          SOURCE: docs/.vuepress/dist
+          SOURCE: docs/.vuepress/dist/
           TARGET: /data/apps/docs/knowledge

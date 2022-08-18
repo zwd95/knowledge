@@ -1,4 +1,8 @@
-# 基于 GitHub Actions 将静态文档部署到 Github Pages
+---
+sidebarDepth: 2
+---
+
+# Github Actions 部署项目
 
 ## Github Actions 是什么
 
@@ -155,10 +159,15 @@ jobs:
 
 ssh-deploy@v3 是一个第三方 Actions，用于自动部署代码到服务器。入参使用 env 进行配置，[配置列表](https://github.com/easingthemes/ssh-deploy#configuration)
 
-- SSH_PRIVATE_KEY：SSH 秘钥，登陆服务器后可执行 ssh-keygen -m PEM -t rsa -b 4096 生成，执行 cat /root/.ssh/id_rsa 查看秘钥
+- SSH_PRIVATE_KEY：SSH 秘钥
 - REMOTE_HOST：服务器地址
 - REMOTE_USER：服务器用户
 - SOURCE：复制到阿里云服务器的文件夹名称
 - TARGET：dist 文件夹将放在 /data/apps/doc 
 
 在项目仓库 Settings -> Secrets -> Actions -> New repository secret 添加 ECS_PRIVATE_KEY ECS_HOST ECS_USER 环境变量
+
+### 秘钥生成
+登陆 [阿里云后台](https://ecs.console.aliyun.com/?spm=a2c63.p38356.0.0.1fa52580XTJ0mc&accounttraceid=5cd503660f5142728242b6febda4c1e9iaph#/keyPair/region/cn-hongkong) 
+
+侧边栏 秘钥对 -> 创建秘钥对，创建完之后记得绑定绑定秘钥对到服务器实例上。同时也会自动下载秘钥文件，打开文件，将里面的内容复制，添加到项目 Settings Secrets 上 （Tip：生成秘钥之后，记得重启服务器实例，否则秘钥无效）

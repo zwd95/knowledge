@@ -1,3 +1,5 @@
+const sidebar = require('./modules/sidebar.js');
+
 module.exports = {
   base: '/knowledge/',
   title: 'Knowledge',
@@ -13,20 +15,11 @@ module.exports = {
       { text: '工程化', link: '/engineering/' }
     ],
 
-    sidebar: [
-      {
-        title: 'Group 1',
-        path: '/engineering/',
-        children: []
-      },
-
-      {
-        title: '自动化部署',
-        path: '',
-        children: [
-          { title: 'Github Page', path: '/engineering/ci/github-page.md' }
-        ]
-      }
-    ]
+    sidebar: {
+      '/engineering/': [
+        '',
+        'github-action',
+      ],
+    }
   }
 }

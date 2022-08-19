@@ -1,7 +1,7 @@
-const sidebar = require('./modules/sidebar.js');
+const sidebar = require('./sidebar/index')
 
 module.exports = {
-  base: '/knowledge/',
+  base: './',
   title: 'Knowledge',
   description: '',
   themeConfig: {
@@ -16,21 +16,6 @@ module.exports = {
       { text: '笔记', link: '/note/' }
     ],
 
-    sidebar: {
-      '/engineering/': [
-        '',
-        'github-action',
-      ],
-
-      '/vue/': [
-        '',
-        'vue3'
-      ],
-      
-      '/note/': [
-        '',
-        'git'
-      ]
-    },
+    sidebar
   }
 }

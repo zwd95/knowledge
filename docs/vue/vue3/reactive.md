@@ -1,10 +1,7 @@
 ---
 sidebarDepth: 2
 ---
-
-# Vue3
-
-## 响应式原理
+# 响应式原理
 
 相比于 Vue2，Vue3 采用 Proxy 去代理对象
 
@@ -14,7 +11,7 @@ sidebarDepth: 2
 - 默认监听数组索引和 length 长度
 - 可以作为单独的模块使用
 
-### reactive 模拟实现
+## reactive 模拟实现
 
 reactive 接受一个参数，并返回一个 Proxy 对象
 
@@ -73,7 +70,7 @@ function reactive(target) {
 }
 ```
 
-### effect
+## effect
 
 在 Vue2 中，是通过 Dep 和 Watcher 去实现依赖收集和派发更新
 

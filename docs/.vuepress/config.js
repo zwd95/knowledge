@@ -1,7 +1,7 @@
 const sidebar = require('./sidebar/index')
 
 module.exports = {
-  base: './',
+  // base: './',
   title: 'Knowledge',
   description: '',
   themeConfig: {

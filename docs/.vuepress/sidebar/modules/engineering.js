@@ -5,7 +5,8 @@ module.exports = {
       sidebarDepth: 2,
       children: [
         { title: 'Github Actions', path: '/engineering/ci/github-action' },
-        { title: 'Docker + Jenkins + Nginx', path: '/engineering/ci/docker-jenkins-nginx' }
+        { title: 'Docker', path: '/engineering/ci/docker' },
+        { title: 'Docker + DockerCompose + Jenkins + Nginx', path: '/engineering/ci/docker-DockerCompose-jenkins-nginx' }
       ]
     }
   ],

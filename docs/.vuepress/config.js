@@ -4,6 +4,7 @@ module.exports = {
   // base: './',
   title: 'Knowledge',
   description: '',
+  dest: 'dist',
   themeConfig: {
     logo: '',
 

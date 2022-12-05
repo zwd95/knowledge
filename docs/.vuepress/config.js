@@ -14,7 +14,8 @@ module.exports = {
       { text: 'CSS', link: '/css/' },
       { text: 'Vue', link: '/vue/' },
       { text: '工程化', link: '/engineering/' },
-      { text: '笔记', link: '/note/' }
+      { text: '设计模式', link: '/design/' },
+      { text: '笔记', link: '/note/' },
     ],
 
     sidebar,

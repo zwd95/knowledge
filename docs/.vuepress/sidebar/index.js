@@ -12,5 +12,6 @@ module.exports = {
   ...html,
   ...engineering,
   ...vue,
-  ...note
+  ...note,
+  ...design
 }

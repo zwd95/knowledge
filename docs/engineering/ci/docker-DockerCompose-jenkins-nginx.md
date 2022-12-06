@@ -301,3 +301,5 @@ $ tar xvf dist.tar
 - 保存
 
 上述操作已经实现了推送代码触发 jenkins 构建事件
+
+

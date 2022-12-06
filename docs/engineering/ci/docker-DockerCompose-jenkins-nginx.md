@@ -189,25 +189,16 @@ docker logs <Container Id>
 Manage Jenkins -> Configure System -> 找到 Publish over SSH
 
 - 输入服务器的密码 `Passphrase`
-
 - 点击新增
-
 - 填入 Name ，内容随便取
-
 - 填入 Hostname，服务器地址 （ip）
-
 - 填入 Username，服务器账户
-
 - 填入 Remote Directory，服务器下静态文件的地址 `/docker/webserver/static`
-
 - 点击保存
 
 ### 配置 nodejs
 
 Manage Jenkins -> Global Tool Configuration -> NodeJS -> 新增 NodeJS -> 填入别名 -> 选择版本号 -> 点击保存
-
-
-
 
 ## jenkins 与 github 集成
 
@@ -240,4 +231,73 @@ cd ~/.ssh
 
 #### 构建环境
 
-构建环境选择 `Provide Node & npm bin/ folder to PATH`
+- 构建环境选择 `Provide Node & npm bin/ folder to PATH`
+- 选择配置好的 Node
+
+#### 构建
+输入构建的命令，例子
+
+```sh
+npm i
+npm run build
+tar cvf dist.tar dist
+```
+
+#### 构建后操作
+`增加构建步骤` -> 选择 `Send files or execute command over SSH` (通过 ssh 发送文件或执行命令)
+
+- SSH Server
+- Name 选择之前配置好的服务器
+- Transfers
+- Source files 输入要发送的文件名 （这里使用 dist.tar）
+- Remote directory 输入要发送的服务器位置 （./docs/knowledge，这里使用相对路径。因为配置服务器的时候已经配置的发送文件的位置）
+- Exec command 输入发送完文件后要执行的命令 
+
+```sh
+$ cd /docker/webserver/static/docs/knowledge
+$ tar xvf dist.tar
+```
+
+### 自动化构建
+
+#### Github 上配置 Jenkins 的 webhook
+- 进入代码仓库
+- 选择 `Settings`
+- 选择 `Webhooks`
+- Payload URL 输入 `ip + jenkins端口/github-webhook/`
+- Which events would you like to trigger this webhook? 选择 `Just the push event` 仅推送事件触发
+
+#### Github 上生成一个 access token
+- 进入 github 主页
+- 右上角个人中心选择 `Settings`
+- `Developer settings`
+- `Tokens`
+- `Generate new token`
+- 保存生成后的 token
+
+#### 修改 Jenkins 配置
+##### 修改系统配置
+- 系统管理
+- 修改系统配置 Configure System
+- Github
+- Github Server
+- 输入名称
+- API URL 默认 `https://api.github.com`
+- 添加凭据
+- 类型选择 Secret text
+- Secret 位置输入刚才生成的 Github Token
+- 描述随便填
+- 保存
+- 选择刚才添加的凭据
+- 保存
+
+##### 修改工程配置
+- 回到工程配置
+- 构建触发器
+- 选择 `GitHub hook trigger for GITScm polling`
+- 构建环境
+- 选择 `Use secret text(s) or file(s)`
+- 凭据 指定凭据，选择刚才保存的 Secret text 凭据
+- 保存
+
+上述操作已经实现了推送代码触发 jenkins 构建事件

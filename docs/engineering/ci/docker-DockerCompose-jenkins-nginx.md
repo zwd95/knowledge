@@ -5,7 +5,7 @@
 切换 root 安装工具包等
 
 ```sh
-yum install -y yum-uitls device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 设置 docker 后续拉取镜像时的仓库地址
